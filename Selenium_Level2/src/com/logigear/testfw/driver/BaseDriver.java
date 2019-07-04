@@ -1,14 +1,15 @@
 package com.logigear.testfw.driver;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebDriver.TargetLocator;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -164,5 +165,10 @@ public class BaseDriver {
 			LOG.severe(String.format("Has error: %s", error.getMessage()));
 			throw error;
 		}
+	}
+	
+	//author hanh.nguyen
+	public Set <String> getWindowHandles() {
+		return _driver.getWindowHandles();
 	}
 }

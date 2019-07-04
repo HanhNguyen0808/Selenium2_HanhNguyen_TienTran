@@ -14,7 +14,7 @@
 		},
 		"txtSearch": {
 			"type": "xpath",
-			"value": "//div[input[@id='pkeywords']]"
+			"value": "//input[@id='pkeywords']"
 		},
 		"btnSearch": {
 			"type": "xpath",

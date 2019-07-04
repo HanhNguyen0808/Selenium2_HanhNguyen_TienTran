@@ -22,6 +22,7 @@ import com.logigear.testfw.driver.DriverManager;
  */
 public class BaseTest {
 	protected static final Logger LOG = LogWrapper.createLogger(BaseTest.class.getName());
+	protected LogWrapper logger = new LogWrapper();
 	
 	@Parameters({ "environment" })
     @BeforeMethod(alwaysRun = true)

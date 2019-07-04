@@ -15,7 +15,7 @@ public class FoodyStorePage extends FoodyGeneralPage{
 	
 	@Override
 	public void initPageElements() {
-		this.initPageElements();
+		super.initPageElements();
 		this.lblHeaderTitle = new Element(getLocator("lblHeaderTitle").getBy());
 		this.lblStreetAddress = new Element(getLocator("lblStreetAddress").getBy());
 		this.lblDistrictAddress = new Element(getLocator("lblDistrictAddress").getBy());
@@ -34,9 +34,9 @@ public class FoodyStorePage extends FoodyGeneralPage{
 	public String[] splitAddress(String address) {
 		String[] add = new String[3];
 		int streetEnd = address.indexOf(",", address.indexOf("."));
-		add[0] = address.substring(0, streetEnd - 1);
+		add[0] = address.substring(0, streetEnd);
 		int districtEnd = address.indexOf(",", streetEnd + 1);
-		add[1] = address.substring(streetEnd + 1, districtEnd - 1).trim();
+		add[1] = address.substring(streetEnd + 1, districtEnd).trim();
 		add[2] = address.substring(districtEnd + 1).trim();
 		return add;
 	}

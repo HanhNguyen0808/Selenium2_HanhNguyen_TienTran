@@ -2,8 +2,6 @@ package com.logigear.test.ta_dashboard.pom.Foody;
 
 import java.util.ArrayList;
 
-import org.openqa.selenium.WebDriver;
-
 import com.logigear.testfw.common.BasePOM;
 import com.logigear.testfw.common.Common;
 import com.logigear.testfw.common.TestExecutor;
@@ -59,13 +57,13 @@ public class FoodyGeneralPage extends BasePOM {
 	public void switchTab(int tabIndex) {
 		try {
 			LOG.info(String.format("Try to switch tab in browser."));
-			WebDriver driver = (WebDriver) TestExecutor.getInstance().getCurrentDriver();
-			ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-			if(tabIndex >= tabs.size() - 1) {
+			
+			ArrayList<String> tabs = new ArrayList<String> (TestExecutor.getInstance().getCurrentDriver().getWindowHandles());
+			if(tabIndex > tabs.size() - 1) {
 				LOG.severe("The index is out of bound.");
 				return;
 			}
-			driver.switchTo().window(tabs.get(tabIndex));
+			TestExecutor.getInstance().getCurrentDriver().switchTo().window(tabs.get(tabIndex));
 		} catch (Exception error) {
 			LOG.severe(String.format("Has error when switching tab in browser."));
 			throw error;

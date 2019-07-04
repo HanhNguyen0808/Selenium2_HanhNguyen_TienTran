@@ -12,7 +12,7 @@ public class FoodySearchResultPage extends FoodyGeneralPage{
 	
 	@Override
 	public void initPageElements() {
-		this.initPageElements();
+		super.initPageElements();
 		//this.cbbLocation = new Element(getLocator("cbbLocation").getBy());
 	}
 	
