@@ -10,6 +10,10 @@
 		},
 		"mneCategory": {
 			"type": "xpath",
+			"value": "//div[@id='head-navigation']//li[a[span[text()='%s']]]"
+		},
+		"mneSubCategory": {
+			"type": "xpath",
 			"value": "//div[@id='head-navigation']//li[a[span[text()='%s']]]//a[@title='%s']"
 		},
 		"txtSearch": {
@@ -39,6 +43,18 @@
 		"tblDelivery": {
 			"type": "xpath",
 			"value": "//div[@id='box-delivery']"
+		},
+		"otpLocation": {
+			"type": "xpath",
+			"value": "//li[a[label[text()='%s']]]"
+		},
+		"txtLocation": {
+			"type": "xpath",
+			"value": "//div[@id='head-province']//input"
+		},
+		"filterForm": {
+			"type": "xpath",
+			"value": "//div[@id='fdDlgSearchFilter']"
 		}
 	}	
 }
