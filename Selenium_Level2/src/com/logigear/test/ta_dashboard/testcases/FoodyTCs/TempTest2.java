@@ -3,27 +3,24 @@ package com.logigear.test.ta_dashboard.testcases.FoodyTCs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.logigear.test.ta_dashboard.data_object.Foody.SearchValue;
 import com.logigear.test.ta_dashboard.pom.Foody.FoodyHomePage;
-import com.logigear.test.ta_dashboard.pom.Foody.FoodyStorePage;
 import com.logigear.testfw.common.BaseTest;
 
 public class TempTest2 extends BaseTest{
 	
 	@Test
-	public void TC_TempTest1() {
+	public void TC_TempTest2() {
 		
-		String location = "Quán Ăn Năm Gia - Miến Gà";
-		String address = "313 Phan Xích Long, P. 2,  Quận Phú Nhuận, TP. HCM";
+		String[] store = {"Quán Ăn Năm Gia - Miến Gà", "Miến Gà Kỳ Đồng"};
 		
-		FoodyStorePage foodyStorePage = new FoodyHomePage().searchWithOnlyLocation(location)
-															.chooseLocation(location);
-		boolean isNameCorrect = foodyStorePage.isNameCorrect(location);
+		SearchValue searchValue = new SearchValue("TP. HCM", "Ăn uống->Quán ăn", "Miến Gà");
 		
-		Assert.assertTrue(isNameCorrect, "The store name is not correct as expected.");
+		boolean areStoreDisplay = new FoodyHomePage().searchFoodStore(searchValue)
+															.isStoreDisplayInResultPage(store);
 		
-		boolean isAddressCorrect = foodyStorePage.isAddressCorrect(address);
+		Assert.assertTrue(areStoreDisplay, "The stores are not display as expected.");
 		
-		Assert.assertTrue(isAddressCorrect, "The address name is not correct as expected.");
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.logigear.test.ta_dashboard.pom.Foody;
 
+import java.util.ArrayList;
+
 import com.logigear.testfw.element.Element;
 
 public class FoodySearchResultPage extends FoodyGeneralPage{
@@ -28,6 +30,24 @@ public class FoodySearchResultPage extends FoodyGeneralPage{
 		return new FoodyStorePage();
 	}
 	
-	
+	public boolean isStoreDisplayInResultPage(String... storeName) {
+		ArrayList<Boolean> areDisplay = new ArrayList<Boolean>();
+		for (String name : storeName) {
+			boolean isDisplay = false;
+			imgSearchResult(name);
+			if(imgSearchResult.isDisplayed())
+				isDisplay = true;
+			areDisplay.add(isDisplay);
+			logger.printMessage(String.format("Is store %s in search result: %s", name, isDisplay));
+		}
+		if(areDisplay.contains(false)) {
+			logger.printMessage("The stores are not all in search result.");
+			return false;
+		}
+		else {
+			logger.printMessage("The stores are all in search result.");
+			return true;
+		}
+	}
 
 }

@@ -198,6 +198,19 @@ public class Element extends BaseElement {
 			throw error;
 		}
 	}
+	
+	//@author hanh.nguyen
+	public boolean isClassActivePresent() {
+		try {
+			LOG.info(String.format("Check if value of attribute \"class\" of the control %s is \"active\" or not", getLocator().toString()));
+			if (getElement().getAttribute("class") == "active") 
+				return true;
+			return false;
+		} catch (Exception error) {
+			LOG.severe(String.format("Has error with control '%s': %s", getLocator().toString(), error.getMessage()));
+			throw error;
+		}
+	}
 
 	protected Select selection(int timeOutInSeconds) {
 		Select selection = new Select(waitForDisplay(timeOutInSeconds));

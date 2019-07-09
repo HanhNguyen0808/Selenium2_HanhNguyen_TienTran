@@ -2,8 +2,8 @@ package com.logigear.test.ta_dashboard.data_object.Foody;
 
 public class SearchValue {
 	
-	protected String _location, _category, _store, _type, _language;
-	protected String[] _region, _foodType, _foodCategory;
+	protected String _location, _headCategory, _store, _type, _language;
+	protected String[] _district, _cuisine, _category;
 
 	public String getLocation() {
 		return _location;
@@ -13,12 +13,12 @@ public class SearchValue {
 		this._location = location;
 	}
 
-	public String getCategory() {
-		return _category;
+	public String getHeadCategory() {
+		return _headCategory;
 	}
 
-	public void setCategory(String category) {
-		this._category = category;
+	public void setHeadCategory(String headCategory) {
+		this._headCategory = headCategory;
 	}
 
 	public String getStore() {
@@ -29,28 +29,28 @@ public class SearchValue {
 		this._store = store;
 	}
 
-	public String[] getRegion() {
-		return _region;
+	public String[] getDistrict() {
+		return _district;
 	}
 
-	public void setRegion(String[] region) {
-		this._region = region;
+	public void setDistrict(String[] district) {
+		this._district = district;
 	}
 
-	public String[] getFoodType() {
-		return _foodType;
+	public String[] getCuisine() {
+		return _cuisine;
 	}
 
-	public void setFoodType(String[] foodType) {
-		this._foodType = foodType;
+	public void setCuisine(String[] cuisine) {
+		this._cuisine = cuisine;
 	}
 
-	public String[] getFoodCategory() {
-		return _foodCategory;
+	public String[] getCategory() {
+		return _category;
 	}
 
-	public void setFoodCategory(String[] foodCategory) {
-		this._foodCategory = foodCategory;
+	public void setCategory(String[] category) {
+		this._category = category;
 	}
 
 	public String getType() {
@@ -69,6 +69,19 @@ public class SearchValue {
 		this._language = language;
 	}
 	
+	public SearchValue(String location, String headCategory, String store, String[] district, String[] cuisine,
+						String[] category) {
+		this._location = location;
+		this._headCategory = headCategory;
+		this._store = store;
+		this._district = district;
+		this._cuisine = cuisine;
+		this._category = category;
+	}
 	
-
+	public SearchValue(String location, String headCategory, String store) {
+		this._location = location;
+		this._headCategory = headCategory;
+		this._store = store;
+	}
 }

@@ -11,19 +11,26 @@ import com.logigear.testfw.element.Element;
 public class FoodyGeneralPage extends BasePOM {
 	
 	protected Element cbbLocation;
+	protected Element mneLocation;
 	protected Element cbbCategory;
+	protected Element optCategory;
 	protected Element mneCategory;
-	protected Element mneSubCategory;
+	protected Element optSubCategory;
 	protected Element txtSearch;
 	protected Element btnSearch;
 	protected Element btnFilter;
 	protected Element btnSelectType;
 	protected Element btnChangeLanguage;
-	protected Element mneLanguage;
+	protected Element imgLanguageValue;
+	protected Element optLanguage;
 	protected Element tblDelivery;
-	protected Element otpLocation;
+	protected Element optLocation;
 	protected Element txtLocation;
 	protected Element filterForm;
+	protected Element mneSelectType;
+	protected Element optSelectType;
+	
+	protected FilterForm searchFilterForm = new FilterForm();
 	
 	public FoodyGeneralPage(Class<?> derivedClass) {
 		super(derivedClass);
@@ -32,31 +39,40 @@ public class FoodyGeneralPage extends BasePOM {
 	@Override
 	public void initPageElements() {
 		this.cbbLocation = new Element(getLocator("cbbLocation").getBy());
+		this.mneLocation = new Element(getLocator("mneLocation").getBy());
 		this.cbbCategory = new Element(getLocator("cbbCategory").getBy());
+		this.optCategory = new Element(getLocator("mneCategory").getBy());
 		this.txtSearch = new Element(getLocator("txtSearch").getBy());
 		this.btnSearch = new Element(getLocator("btnSearch").getBy());
 		this.btnFilter = new Element(getLocator("btnFilter").getBy());
 		this.btnSelectType = new Element(getLocator("btnSelectType").getBy());
 		this.btnChangeLanguage = new Element(getLocator("btnChangeLanguage").getBy());
+		this.imgLanguageValue = new Element(getLocator("imgLanguageValue").getBy());
 		this.tblDelivery = new Element(getLocator("tblDelivery").getBy());
 		this.txtLocation = new Element(getLocator("txtLocation").getBy());
 		this.filterForm = new Element(getLocator("filterForm").getBy());
+		this.mneSelectType = new Element(getLocator("mneSelectType").getBy());
+		
 	}
 	
-	public void mneCategory(String type) {
-		this.mneCategory = new Element(getLocator("mneCategory").getBy(type));
+	public void optCategory(String type) {
+		this.optCategory = new Element(getLocator("optCategory").getBy(type));
 	}
 	
-	public void mneSubCategory(String type, String subType) {
-		this.mneSubCategory = new Element(getLocator("mneSubCategory").getBy(type, subType));
+	public void optSubCategory(String type, String subType) {
+		this.optSubCategory = new Element(getLocator("optSubCategory").getBy(type, subType));
 	}
 	
-	public void mneLanguage(String language) {
-		this.mneLanguage = new Element(getLocator("mneLanguage").getBy(language));
+	public void optLanguage(String language) {
+		this.optLanguage = new Element(getLocator("optLanguage").getBy(language));
 	}
 	
-	public void otpLocation(String location) {
-		this.otpLocation = new Element(getLocator("otpLocation").getBy(location));
+	public void optLocation(String location) {
+		this.optLocation = new Element(getLocator("optLocation").getBy(location));
+	}
+	
+	public void optSelectType(String type) {
+		this.optSelectType = new Element(getLocator("optSelectType").getBy(type));
 	}
 	
 	public FoodySearchResultPage searchWithOnlyLocation(String foodStore) {
@@ -92,44 +108,102 @@ public class FoodyGeneralPage extends BasePOM {
 		}
 	}
 	
-	public void selectLocation(String location) {
-		if(location != null && location != cbbLocation.getText()){
-			logger.printMessage("In \"Location\" combobox, seach: " + location);
-			cbbLocation.click();
-			otpLocation(location);
-			otpLocation.waitForClickable(Common.ELEMENT_TIMEOUT);
-			otpLocation.click();
+	public void openMenuAndForm(Element openItem, Element clickItem) {
+		if(openItem.isExisted()) {
+			if(openItem.getSize() != null) {
+				clickItem.click();
+				openItem.waitForDisplay(Common.ELEMENT_TIMEOUT);
+			}
+		}
+		else if (!openItem.isExisted()) {
+			clickItem.click();
+			openItem.waitForDisplay(Common.ELEMENT_TIMEOUT);
 		}
 	}
 	
-	public void selectCategory(String category) {
-		if(category != null && category != cbbCategory.getText()){
-			logger.printMessage("In \"Category\" combobox, seach: " + category);
-			String[] menuItem = category.split("->", 2);
-			cbbCategory.click();
-			mneCategory(menuItem[0].trim());
-			mneCategory.moveToElement();
-			mneSubCategory(menuItem[0].trim(), menuItem[1].trim());
-			mneSubCategory.click();
+	public void selectLocation(String location) {
+		if(location != null && location != cbbLocation.getText()){
+			logger.printMessage("In \"Location\" combobox, select: " + location);
+			openMenuAndForm(mneLocation, cbbLocation);
+			optLocation(location);
+			optLocation.click();
+			optLocation.waitForDisappear(Common.ELEMENT_TIMEOUT);
 		}
+	}
+	
+	public FoodySearchResultPage selectHeadCategory(String category) {
+		if(category != null && category != cbbCategory.getText()){
+			logger.printMessage("In \"Category\" combobox, select: " + category);
+			openMenuAndForm(mneCategory, cbbCategory);
+			String[] menuItem = category.split("->", 2);
+			optCategory(menuItem[0].trim());
+			optCategory.moveToElement();
+			optSubCategory(menuItem[0].trim(), menuItem[1].trim());
+			optSubCategory.click();
+			optSubCategory.waitForDisappear(Common.ELEMENT_TIMEOUT);
+		}
+		return new FoodySearchResultPage();
+	}
+	
+	public void selectType(String type) {
+		openMenuAndForm(mneSelectType, btnSelectType);
+		optSelectType(type);
+		optSelectType.click();
+		optSelectType.waitForDisappear(Common.ELEMENT_TIMEOUT);
 	}
 	
 	public FoodySearchResultPage searchFoodStore(SearchValue searchValue) {
 		logger.printMessage("Search food store.");
-		enterFilterValue(searchValue.getStore());
 		selectLocation(searchValue.getLocation());
-		selectCategory(searchValue.getCategory());
-		btnSearch.click();
+		selectHeadCategory(searchValue.getHeadCategory());
+		enterFilterValue(searchValue.getStore());
+		if(searchValue.getDistrict() != null || searchValue.getCuisine() != null || searchValue.getCategory() != null) {
+			submitFilterForm(searchValue);
+		}
+		else
+			btnSearch.click();
 		return new FoodySearchResultPage();
 	}
 	
 	public FilterForm openFilterForm() {
-		if(!filterForm.isDisplayed()) {
-			logger.printMessage("Open \"Filter Form\" by clicking \"Filert\" button.");
-			btnFilter.click();
-		}
+		logger.printMessage("Open \"Filter Form\" by clicking \"Filert\" button.");
+		openMenuAndForm(filterForm, btnFilter);
 		return new FilterForm();
 	}
 	
+	public FoodySearchResultPage submitFilterForm(SearchValue searchValue) {
+		openFilterForm();
+		searchFilterForm.submitFilterForm(searchValue);
+		return new FoodySearchResultPage();
+	}
 	
+	public enum Language { 
+		ENGLISH("us"),
+		VIETNAMESE("vn");
+		
+		private String _language;
+		
+		public String getValue() {
+			return _language;
+		}
+
+		public void setValue(String language) {
+			this._language = language;
+		}
+
+		private Language(String language) {
+			this._language = language;
+		}
+	}
+	
+	public FoodyGeneralPage changeLanguage(Language language) {
+		if(!imgLanguageValue.getAttribute("src").contains(language.getValue())) {
+			logger.printMessage("Change language to: " + language);
+			optLanguage(language.getValue());
+			openMenuAndForm(optLanguage, btnChangeLanguage);
+			optLanguage.click();
+			optLanguage.waitForDisappear(Common.ELEMENT_TIMEOUT);
+		}
+		return this;
+	}
 }
