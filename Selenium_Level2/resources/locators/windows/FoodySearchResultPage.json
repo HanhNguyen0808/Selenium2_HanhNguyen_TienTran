@@ -2,7 +2,7 @@
 	"default": {
 		"imgSearchResult": {
 			"type": "xpath",
-			"value": "//div[@class='filter-results']//a[@title='%s']/img"
+			"value": "//a[text()='%s']"
 		}
 	}	
 }

@@ -177,7 +177,7 @@ public class Element extends BaseElement {
 			LOG.info(String.format("Check if the control %s is existed in DOM", getLocator().toString()));
 			waitForPresent(Common.ELEMENT_TIMEOUT);
 			isExisted = true;
-		} catch (NoSuchElementException | TimeoutException ex) {
+		} catch (NoSuchElementException | TimeoutException | NullPointerException ex) {
 			LOG.info(String.format("The control %s is not existed in DOM", getLocator().toString()));
 			isExisted = false;
 		} catch (Exception error) {
@@ -421,6 +421,21 @@ public class Element extends BaseElement {
 
 	public List<String> getOptions() {
 		return getOptions(Common.ELEMENT_LONG_TIMEOUT);
+	}
+	
+	public boolean isElementPresent(int timeOutInSeconds) {
+		try {
+			waitForPresent(timeOutInSeconds);
+			return isElementPresent();
+		} catch (Exception e) {
+			LOG.severe(String.format("IsDisplayed: Has error with control '%s': %s", getLocator().toString(),
+					e.getMessage()));
+			return false;
+		}
+	}
+	
+	public boolean isElementPresent() {
+		return isElementPresent(Common.ELEMENT_LONG_TIMEOUT);
 	}
 
 }

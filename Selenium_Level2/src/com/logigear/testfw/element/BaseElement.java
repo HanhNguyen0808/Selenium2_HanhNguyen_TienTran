@@ -48,6 +48,15 @@ abstract class BaseElement{
 	protected WebElement getElement() {
 		return waitForDisplay(Common.ELEMENT_TIMEOUT);
 	}
+	
+	//@author hanh.nguyen
+	protected WebElement getElementByFind() {
+		return TestExecutor.getInstance().getCurrentDriver().findElement(getLocator(), Common.ELEMENT_SHORT_TIMEOUT);
+	}
+	
+	protected WebElement getElementByFind(int timeOutInSeconds) {
+		return TestExecutor.getInstance().getCurrentDriver().findElement(getLocator(), timeOutInSeconds);
+	}
 
 	protected List<WebElement> getWebElements() {
 		return waitForAllElementsDisplay(Common.ELEMENT_TIMEOUT);
@@ -366,6 +375,36 @@ abstract class BaseElement{
 		return getCssValue(Common.ELEMENT_LONG_TIMEOUT, propertyName);
 	}
 
+//	public boolean isDisplayed(int timeOutInSeconds) {
+//		boolean isDisplayed = false;
+//		if (timeOutInSeconds <= 0) {
+//			LOG.severe("The time out is invalid. It must greater than 0");
+//			return isDisplayed;
+//		}
+//		Stopwatch sw = Stopwatch.createStarted();
+//		try {
+//			LOG.info(String.format("Check if the control %s is displayed with timeOut %s", getLocator().toString(),
+//					timeOutInSeconds));
+//			isDisplayed = getElement().isDisplayed();
+//		} catch (StaleElementReferenceException e) {
+//			if (sw.elapsed(TimeUnit.SECONDS) < (long) timeOutInSeconds) {
+//				LOG.warning(String.format("Try to check if the control the control %s is displayed again",
+//						getLocator().toString()));
+//				return isDisplayed(timeOutInSeconds - (int) sw.elapsed(TimeUnit.SECONDS));
+//			}
+//		} catch (Exception error) {
+//			LOG.severe(String.format("Cannot Check isDisplayed on control '%s': %s", getLocator().toString(),
+//					error.getMessage()));
+//			throw error;
+//		}
+//		return isDisplayed;
+//	}
+
+	public boolean isDisplayed() {
+		return isDisplayed(Common.ELEMENT_TIMEOUT);
+	}
+	
+	//@author hanh.nguyen
 	public boolean isDisplayed(int timeOutInSeconds) {
 		boolean isDisplayed = false;
 		if (timeOutInSeconds <= 0) {
@@ -376,7 +415,8 @@ abstract class BaseElement{
 		try {
 			LOG.info(String.format("Check if the control %s is displayed with timeOut %s", getLocator().toString(),
 					timeOutInSeconds));
-			isDisplayed = getElement().isDisplayed();
+			
+			isDisplayed = TestExecutor.getInstance().getCurrentDriver().findElement(getLocator(), timeOutInSeconds).isDisplayed();
 		} catch (StaleElementReferenceException e) {
 			if (sw.elapsed(TimeUnit.SECONDS) < (long) timeOutInSeconds) {
 				LOG.warning(String.format("Try to check if the control the control %s is displayed again",
@@ -390,11 +430,21 @@ abstract class BaseElement{
 		}
 		return isDisplayed;
 	}
-
-	public boolean isDisplayed() {
-		return isDisplayed(Common.ELEMENT_TIMEOUT);
+	
+	//@author hanh.nguyen
+	public boolean isElementPresent() {
+		try {
+			waitForPresent(0);
+			return getElementByFind(0).isDisplayed();
+		} catch (NullPointerException e) {
+			return false;
+		}
+		catch (Exception e) {
+			LOG.severe(e.getMessage());
+			return false;
+		}
 	}
-
+	
 	public boolean isEnabled(int timeOutInSeconds) {
 		boolean isEnabled = false;
 		if (timeOutInSeconds <= 0) {
@@ -475,6 +525,8 @@ abstract class BaseElement{
 //	public String getPageTitle() {
 //		return getTagName(Common.ELEMENT_LONG_TIMEOUT);
 //	}
+	
+	
 	
 	
 }

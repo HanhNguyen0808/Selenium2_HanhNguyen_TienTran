@@ -41,7 +41,7 @@ public class FoodyGeneralPage extends BasePOM {
 		this.cbbLocation = new Element(getLocator("cbbLocation").getBy());
 		this.mneLocation = new Element(getLocator("mneLocation").getBy());
 		this.cbbCategory = new Element(getLocator("cbbCategory").getBy());
-		this.optCategory = new Element(getLocator("mneCategory").getBy());
+		this.mneCategory = new Element(getLocator("mneCategory").getBy());
 		this.txtSearch = new Element(getLocator("txtSearch").getBy());
 		this.btnSearch = new Element(getLocator("btnSearch").getBy());
 		this.btnFilter = new Element(getLocator("btnFilter").getBy());
@@ -110,7 +110,7 @@ public class FoodyGeneralPage extends BasePOM {
 	
 	public void openMenuAndForm(Element openItem, Element clickItem) {
 		if(openItem.isExisted()) {
-			if(openItem.getSize() != null) {
+			if(!openItem.isDisplayed()) {
 				clickItem.click();
 				openItem.waitForDisplay(Common.ELEMENT_TIMEOUT);
 			}
@@ -122,7 +122,7 @@ public class FoodyGeneralPage extends BasePOM {
 	}
 	
 	public void selectLocation(String location) {
-		if(location != null && location != cbbLocation.getText()){
+		if(location != null && !location.equals(cbbLocation.getText())){
 			logger.printMessage("In \"Location\" combobox, select: " + location);
 			openMenuAndForm(mneLocation, cbbLocation);
 			optLocation(location);
@@ -132,7 +132,7 @@ public class FoodyGeneralPage extends BasePOM {
 	}
 	
 	public FoodySearchResultPage selectHeadCategory(String category) {
-		if(category != null && category != cbbCategory.getText()){
+		if(category != null && !category.equals(cbbCategory.getText())){
 			logger.printMessage("In \"Category\" combobox, select: " + category);
 			openMenuAndForm(mneCategory, cbbCategory);
 			String[] menuItem = category.split("->", 2);
@@ -154,6 +154,7 @@ public class FoodyGeneralPage extends BasePOM {
 	
 	public FoodySearchResultPage searchFoodStore(SearchValue searchValue) {
 		logger.printMessage("Search food store.");
+		System.out.println(searchValue.getHeadCategory());
 		selectLocation(searchValue.getLocation());
 		selectHeadCategory(searchValue.getHeadCategory());
 		enterFilterValue(searchValue.getStore());

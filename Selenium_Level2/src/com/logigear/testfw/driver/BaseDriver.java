@@ -167,8 +167,34 @@ public class BaseDriver {
 		}
 	}
 	
-	//author hanh.nguyen
+	//@author hanh.nguyen
 	public Set <String> getWindowHandles() {
 		return _driver.getWindowHandles();
 	}
+	
+	private void wait(int second){	
+		try
+		{
+		    Thread.sleep(second * 1000);
+		}
+		catch(InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
+		}
+	}
+	
+	//@author hanh.nguyen
+	public WebElement findElement(By elementDescription, int timeOutInSeconds) {
+		WebElement element = getWebDriver().findElement(elementDescription);
+		while(timeOutInSeconds > 0){
+			if(element != null)
+			{
+				return element;
+			}
+			wait(1);
+			timeOutInSeconds--;
+		}
+		return null;
+	}
+	
 }
