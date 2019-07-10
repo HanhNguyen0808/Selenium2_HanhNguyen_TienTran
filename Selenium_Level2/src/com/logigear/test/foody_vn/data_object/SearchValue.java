@@ -1,4 +1,4 @@
-package com.logigear.test.ta_dashboard.data_object.Foody;
+package com.logigear.test.foody_vn.data_object;
 
 public class SearchValue {
 	

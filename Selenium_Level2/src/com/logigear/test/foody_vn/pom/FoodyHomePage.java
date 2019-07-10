@@ -1,4 +1,4 @@
-package com.logigear.test.ta_dashboard.pom.Foody;
+package com.logigear.test.foody_vn.pom;
 
 public class FoodyHomePage extends FoodyGeneralPage{
 	
