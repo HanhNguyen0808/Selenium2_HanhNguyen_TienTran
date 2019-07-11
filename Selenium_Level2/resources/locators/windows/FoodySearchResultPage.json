@@ -3,6 +3,34 @@
 		"lnkSearchResult": {
 			"type": "xpath",
 			"value": "//a[text()='%s']"
+		},
+		"itemLeftMenu": {
+			"type": "xpath",
+			"value": "//div[@id='directory-search-resulttab']//a[normalize-space(text())='%s']"
+		},
+		"lnkTopToolbar": {
+			"type": "xpath",
+			"value": "//a[text()='%s' and @data-bind]"
+		},
+		"lnkFirstSearchResult": {
+			"type": "xpath",
+			"value": "//div[@class='row-item filter-result-item'][1]//a[contains(@data-bind,'text: Name')]"
+		},
+		"lblFirstSearchResultAddress": {
+			"type": "xpath",
+			"value": "//div[@class='row-item filter-result-item'][1]//span[@data-bind='text: Address']"
+		},
+		"lblFirstSearchResultDistrict": {
+			"type": "xpath",
+			"value": "//div[@class='row-item filter-result-item'][1]//span[@data-bind='text: District']"
+		},
+		"lblFirstSearchResultCity": {
+			"type": "xpath",
+			"value": "//div[@class='row-item filter-result-item'][1]//span[@data-bind='text: City']"
+		},
+		"listStoreName": {
+			"type": "xpath",
+			"value": "//div[@class='row-view' and @data-bind]//a[contains(@data-bind,'text: Name')]"
 		}
 	}	
 }

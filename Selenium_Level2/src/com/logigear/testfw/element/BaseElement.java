@@ -296,6 +296,37 @@ abstract class BaseElement{
 	public String getText() {
 		return getText(Common.ELEMENT_LONG_TIMEOUT);
 	}
+	
+	//@author hanh.nguyen
+	public String getHideText(int timeOutInSeconds) {
+		String text = null;
+		if (timeOutInSeconds <= 0) {
+			LOG.severe("The time out is invalid. It must greater than 0");
+			return text;
+		}
+		Stopwatch sw = Stopwatch.createStarted();
+		try {
+			LOG.info(String.format("Get the inner text of the control %s with timeOut: %s", getLocator().toString(),
+					timeOutInSeconds));
+			String script = "return arguments[0].text;";
+			TestExecutor.getInstance().getCurrentDriver().executeScript(script, getElementByFind());
+		} catch (StaleElementReferenceException ex) {
+			if (sw.elapsed(TimeUnit.SECONDS) < (long) timeOutInSeconds) {
+				LOG.warning(
+
+						String.format("Try to get the inner text of the control %s again", getLocator().toString()));
+				return getText(timeOutInSeconds - (int) sw.elapsed(TimeUnit.SECONDS));
+			}
+		} catch (Exception error) {
+			LOG.severe(String.format("Has error with control '%s': %s", getLocator().toString(), error.getMessage()));
+			throw error;
+		}
+		return text;
+	}
+
+	public String getHideText() {
+		return getHideText(Common.ELEMENT_LONG_TIMEOUT);
+	}
 
 	public Point getLocation(int timeOutInSeconds) {
 		Point location = null;

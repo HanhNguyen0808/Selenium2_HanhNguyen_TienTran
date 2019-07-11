@@ -1,5 +1,7 @@
 package com.logigear.test.foody.pom;
 
+import com.logigear.testfw.common.Common;
+import com.logigear.testfw.common.Constant;
 import com.logigear.testfw.element.Element;
 
 public class FoodyStorePage extends FoodyGeneralPage{
@@ -22,13 +24,28 @@ public class FoodyStorePage extends FoodyGeneralPage{
 		this.lblCityAddress = new Element(getLocator("lblCityAddress").getBy());
 	}
 	
+	public FoodyStorePage waitForLoading(int timeOutInSeconds) {
+		lblHeaderTitle.waitForDisplay(timeOutInSeconds);
+		logger.printMessage("Page is loaded successfully");
+		return this;
+	}
+
+	public FoodyStorePage waitForLoading() {
+		waitForLoading(Common.ELEMENT_TIMEOUT);
+		return this;
+	}
+	
 	public boolean isNameCorrect(String name) {
 		boolean isCorrect = false;
 		String actualName = lblHeaderTitle.getText();
-		if(actualName.equals(name))
+		if(actualName.equalsIgnoreCase(name))
 			isCorrect = true;
 		logger.printMessage("Is store name correct: " + isCorrect);
 		return isCorrect;
+	}
+	
+	public boolean isRandomNameCorrect() {
+		return isNameCorrect(Constant.storeName);
 	}
 	
 	public String[] splitAddress(String address) {
@@ -42,31 +59,53 @@ public class FoodyStorePage extends FoodyGeneralPage{
 	}
 	
 	public boolean isAddressCorrect(String address) {
-		boolean isCorrect = false;
-		boolean isStreetCorrect, isDistrictCorrect, isCityCorrect;
 		String[] add = splitAddress(address);
-		if(lblStreetAddress.getText().equals(add[0]))
+		return verifyAddress(add[0], add[1], add[2]);
+	}
+	
+	public boolean verifyAddress(String address, String district, String city) {
+		boolean isCorrect = false;
+		boolean isStreetCorrect, isDistrictCorrect = false, isCityCorrect = false;
+		if(lblStreetAddress.getText().equals(address))
 			isStreetCorrect = true;
 		else {
 			isStreetCorrect = false;
 			logger.printMessage("The Street address is false.");
 		}
-		if(lblDistrictAddress.getText().equals(add[1]))
+		
+		if(district != "") {
+			if(lblDistrictAddress.getText().equals(district))
+				isDistrictCorrect = true;
+			else {
+				isDistrictCorrect = false;
+				logger.printMessage("The District address is false.");
+			}
+		}
+		if (district == "") {
 			isDistrictCorrect = true;
-		else {
-			isDistrictCorrect = false;
-			logger.printMessage("The District address is false.");
 		}
-		if(lblCityAddress.getText().equals(add[2]))
+		
+		if(city != "") {
+			if(lblCityAddress.getText().equals(city))
+				isCityCorrect = true;
+			else {
+				isCityCorrect = false;
+				logger.printMessage("The City address is false, the right value is: " + city + ", but found: " + lblCityAddress.getText());
+			}
+		}
+		if(city == "") {
 			isCityCorrect = true;
-		else {
-			isCityCorrect = false;
-			logger.printMessage("The City address is false.");
 		}
-		if(isStreetCorrect && isDistrictCorrect && isCityCorrect)
+			
+		if(isStreetCorrect && isDistrictCorrect && isCityCorrect) 
 			isCorrect = true;
+		
 		logger.printMessage("Is address correct: " + isCorrect);
 		return isCorrect;
+	}
+	
+	public boolean isRandomAddressCorrect() {
+		return verifyAddress(Constant.storeAddress, Constant.storeDistrict, Constant.storeCity);
 	}
 
 }

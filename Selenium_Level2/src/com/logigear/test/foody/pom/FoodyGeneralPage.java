@@ -97,7 +97,6 @@ public class FoodyGeneralPage extends BasePOM {
 			TestExecutor.getInstance().getCurrentDriver().switchTo().window(tabs.get(tabIndex));
 		} catch (Exception error) {
 			LOG.severe(String.format("Has error when switching tab in browser."));
-			throw error;
 		}
 	}
 	

@@ -1,0 +1,8 @@
+{
+	"default": {
+		"lblTableTitle": {
+			"type": "xpath",
+			"value": "//div[text()='%s']"
+		}
+	}	
+}
