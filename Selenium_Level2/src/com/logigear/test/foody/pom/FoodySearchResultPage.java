@@ -1,4 +1,4 @@
-package com.logigear.test.foody_vn.pom;
+package com.logigear.test.foody.pom;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import com.logigear.testfw.element.Element;
 
 public class FoodySearchResultPage extends FoodyGeneralPage{
 	
-	protected Element imgSearchResult;
+	protected Element lnkSearchResult;
 	
 	public FoodySearchResultPage() {
 		super(FoodySearchResultPage.class);
@@ -18,14 +18,14 @@ public class FoodySearchResultPage extends FoodyGeneralPage{
 		//this.cbbLocation = new Element(getLocator("cbbLocation").getBy());
 	}
 	
-	public void imgSearchResult(String name) {
-		this.imgSearchResult = new Element(getLocator("imgSearchResult").getBy(name));
+	public void lnkSearchResult(String name) {
+		this.lnkSearchResult = new Element(getLocator("lnkSearchResult").getBy(name));
 	}
 	
 	public FoodyStorePage chooseLocation(String location) {
 		logger.printMessage("Choose a store: " + location);
-		imgSearchResult(location);
-		imgSearchResult.click();
+		lnkSearchResult(location);
+		lnkSearchResult.click();
 		switchTab(1);
 		return new FoodyStorePage();
 	}
@@ -34,8 +34,8 @@ public class FoodySearchResultPage extends FoodyGeneralPage{
 		ArrayList<Boolean> areDisplay = new ArrayList<Boolean>();
 		for (String name : storeName) {
 			boolean isDisplay = false;
-			imgSearchResult(name);
-			if(imgSearchResult.isDisplayed())
+			lnkSearchResult(name);
+			if(lnkSearchResult.isDisplayed())
 				isDisplay = true;
 			areDisplay.add(isDisplay);
 			logger.printMessage(String.format("Is store %s in search result: %s", name, isDisplay));

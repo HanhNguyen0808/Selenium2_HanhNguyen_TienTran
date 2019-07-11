@@ -1,8 +1,8 @@
-package com.logigear.test.foody_vn.pom;
+package com.logigear.test.foody.pom;
 
 import java.util.ArrayList;
 
-import com.logigear.test.foody_vn.data_object.SearchValue;
+import com.logigear.test.foody.data_object.SearchValue;
 import com.logigear.testfw.common.BasePOM;
 import com.logigear.testfw.common.Common;
 import com.logigear.testfw.common.TestExecutor;
@@ -132,7 +132,7 @@ public class FoodyGeneralPage extends BasePOM {
 	}
 	
 	public FoodySearchResultPage selectHeadCategory(String category) {
-		if(category != null && !category.equals(cbbCategory.getText())){
+		if(category != null){
 			logger.printMessage("In \"Category\" combobox, select: " + category);
 			openMenuAndForm(mneCategory, cbbCategory);
 			String[] menuItem = category.split("->", 2);

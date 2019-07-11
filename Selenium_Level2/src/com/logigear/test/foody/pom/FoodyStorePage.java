@@ -1,4 +1,4 @@
-package com.logigear.test.foody_vn.pom;
+package com.logigear.test.foody.pom;
 
 import com.logigear.testfw.element.Element;
 

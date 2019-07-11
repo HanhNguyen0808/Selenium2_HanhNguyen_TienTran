@@ -1,10 +1,10 @@
-package com.logigear.test.foody_vn.testcases;
+package com.logigear.test.foody.testcases;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.logigear.test.foody_vn.data_object.SearchValue;
-import com.logigear.test.foody_vn.pom.FoodyHomePage;
+import com.logigear.test.foody.data_object.SearchValue;
+import com.logigear.test.foody.pom.FoodyHomePage;
 import com.logigear.testfw.common.BaseTest;
 
 public class TempTest2 extends BaseTest{
@@ -12,7 +12,7 @@ public class TempTest2 extends BaseTest{
 	@Test
 	public void TC_TempTest2() {
 		
-		String[] store = {"Quán Ăn Năm Gia - Miến Gà", "Miến Gà Kỳ Đồng"};
+		String[] store = {"Quán Ăn Năm Gia - Miến Gà", "Phở Miến Gà Kỳ Đồng"};
 		
 		SearchValue searchValue = new SearchValue("TP. HCM", "Ăn uống->Quán ăn", "Miến Gà");
 		

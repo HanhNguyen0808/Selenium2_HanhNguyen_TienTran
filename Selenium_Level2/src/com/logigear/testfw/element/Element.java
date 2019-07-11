@@ -423,19 +423,19 @@ public class Element extends BaseElement {
 		return getOptions(Common.ELEMENT_LONG_TIMEOUT);
 	}
 	
-	public boolean isElementPresent(int timeOutInSeconds) {
-		try {
-			waitForPresent(timeOutInSeconds);
-			return isElementPresent();
-		} catch (Exception e) {
-			LOG.severe(String.format("IsDisplayed: Has error with control '%s': %s", getLocator().toString(),
-					e.getMessage()));
-			return false;
-		}
-	}
-	
-	public boolean isElementPresent() {
-		return isElementPresent(Common.ELEMENT_LONG_TIMEOUT);
-	}
+//	public boolean isElementPresent(int timeOutInSeconds) {
+//		try {
+//			waitForPresent(timeOutInSeconds);
+//			return isElementPresent();
+//		} catch (Exception e) {
+//			LOG.severe(String.format("IsDisplayed: Has error with control '%s': %s", getLocator().toString(),
+//					e.getMessage()));
+//			return false;
+//		}
+//	}
+//	
+//	public boolean isElementPresent() {
+//		return isElementPresent(Common.ELEMENT_LONG_TIMEOUT);
+//	}
 
 }

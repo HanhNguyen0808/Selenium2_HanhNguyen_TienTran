@@ -1,6 +1,6 @@
-package com.logigear.test.foody_vn.pom;
+package com.logigear.test.foody.pom;
 
-import com.logigear.test.foody_vn.data_object.SearchValue;
+import com.logigear.test.foody.data_object.SearchValue;
 import com.logigear.testfw.common.BasePOM;
 import com.logigear.testfw.element.Element;
 

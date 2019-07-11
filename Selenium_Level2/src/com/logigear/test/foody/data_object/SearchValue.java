@@ -1,4 +1,4 @@
-package com.logigear.test.foody_vn.data_object;
+package com.logigear.test.foody.data_object;
 
 public class SearchValue {
 	

@@ -1,6 +1,6 @@
 {
 	"default": {
-		"imgSearchResult": {
+		"lnkSearchResult": {
 			"type": "xpath",
 			"value": "//a[text()='%s']"
 		}

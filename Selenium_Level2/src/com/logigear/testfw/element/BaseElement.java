@@ -432,18 +432,18 @@ abstract class BaseElement{
 	}
 	
 	//@author hanh.nguyen
-	public boolean isElementPresent() {
-		try {
-			waitForPresent(0);
-			return getElementByFind(0).isDisplayed();
-		} catch (NullPointerException e) {
-			return false;
-		}
-		catch (Exception e) {
-			LOG.severe(e.getMessage());
-			return false;
-		}
-	}
+//	public boolean isElementPresent() {
+//		try {
+//			waitForPresent(0);
+//			return getElementByFind(0).isDisplayed();
+//		} catch (NullPointerException e) {
+//			return false;
+//		}
+//		catch (Exception e) {
+//			LOG.severe(e.getMessage());
+//			return false;
+//		}
+//	}
 	
 	public boolean isEnabled(int timeOutInSeconds) {
 		boolean isEnabled = false;

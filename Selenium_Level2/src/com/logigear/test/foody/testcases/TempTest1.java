@@ -1,10 +1,10 @@
-package com.logigear.test.foody_vn.testcases;
+package com.logigear.test.foody.testcases;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.logigear.test.foody_vn.pom.FoodyHomePage;
-import com.logigear.test.foody_vn.pom.FoodyStorePage;
+import com.logigear.test.foody.pom.FoodyHomePage;
+import com.logigear.test.foody.pom.FoodyStorePage;
 import com.logigear.testfw.common.BaseTest;
 
 public class TempTest1 extends BaseTest{
